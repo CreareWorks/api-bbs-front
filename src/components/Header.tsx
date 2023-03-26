@@ -1,0 +1,78 @@
+import React from 'react';
+
+import styled from 'styled-components';
+
+import useHeaderHook from '../features/auth/hooks/useHeaderHook';
+
+const HeaderComponent = () => {
+
+    const {
+        clickLogoutHandler,
+        loginDisplay,
+        clickTop,
+        authCheck,
+        dashboradDisplay
+    } = useHeaderHook();
+
+    return (
+        <Wrapper>
+            <Ul>
+                <Li onClick={clickTop}>
+                    TOP
+                </Li>
+                {
+                    !authCheck &&
+                    <Li onClick={loginDisplay}>
+                        login
+                    </Li>
+                }
+                
+                {
+                    authCheck &&
+                    <Li onClick={clickLogoutHandler}>
+                        logout
+                    </Li>
+                }
+                {
+                    authCheck &&
+                    <Li onClick={dashboradDisplay}>
+                        DashBorad
+                    </Li>
+                }
+            </Ul>
+        </Wrapper>
+    );
+}
+
+
+// styled
+const Wrapper = styled.div`
+    background-color: #ff9191;
+`;
+
+const Ul = styled.ul`
+    margin: 0;
+    height: 10%;
+    display: flex;
+    justify-content: left;
+`;
+
+const Li = styled.li`
+    list-style: none;
+    margin: 0 1rem 0 1rem;
+    color: white;
+`;
+
+const Header = styled.header`
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+`;
+
+
+export default HeaderComponent;
