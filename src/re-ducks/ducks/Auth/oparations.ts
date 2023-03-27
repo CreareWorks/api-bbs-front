@@ -11,7 +11,7 @@ import type { LoginResponse } from "../../../re-ducks/ducks/Auth/type";
 import type { MeResponse } from "../../../types/meResponse";
 
 import { setToken } from "./tokenSlice";
-import { setAuthTrue, setAuthFalse } from "./authCheckSlice"
+import { setAuthTrue, setAuthFalse, setMeMeta } from "./authCheckSlice"
 
 /**
  * 非同期処理や、副作用のある処理はここに記述する。 
@@ -55,6 +55,7 @@ export const Me = () => {
 
             if (response.id) {
                 dispatch(setAuthTrue());
+                dispatch(setMeMeta(response));
             } else {
                 dispatch(setAuthFalse());
             }

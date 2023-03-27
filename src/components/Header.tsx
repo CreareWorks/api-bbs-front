@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import useHeaderHook from '../features/auth/hooks/useHeaderHook';
+import useHeaderHook from '../hooks/useHeaderHook';
 
 const HeaderComponent = () => {
 
@@ -11,7 +11,8 @@ const HeaderComponent = () => {
         loginDisplay,
         clickTop,
         authCheck,
-        dashboradDisplay
+        dashboradDisplay,
+        meMeta
     } = useHeaderHook();
 
     return (
@@ -39,6 +40,12 @@ const HeaderComponent = () => {
                         DashBorad
                     </Li>
                 }
+                {
+                    authCheck &&
+                    <Li>
+                        「{ meMeta.name }」でログイン中
+                    </Li>
+                }
             </Ul>
         </Wrapper>
     );
@@ -61,6 +68,7 @@ const Li = styled.li`
     list-style: none;
     margin: 0 1rem 0 1rem;
     color: white;
+    cursor: pointer;
 `;
 
 const Header = styled.header`

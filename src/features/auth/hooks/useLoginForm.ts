@@ -12,7 +12,7 @@ import { Login } from "../../../re-ducks/ducks/Auth/oparations";
 import { useTokenSelector } from "../../../re-ducks/ducks/Auth/tokenSlice";
 import { useNavigate } from "react-router-dom";
 
-import { setAuthTrue, useAuthSelector } from "../../../re-ducks/ducks/Auth/authCheckSlice"
+import { setAuthTrue, setMeMeta, useAuthSelector, useMeMetaSelector } from "../../../re-ducks/ducks/Auth/authCheckSlice"
 
 
 const useLoginForm = () => {
@@ -22,6 +22,9 @@ const useLoginForm = () => {
     // 認証中にログイン画面へ遷移された時、DashBoradへ
     const { authCheck  } = useAuthSelector();
     authCheck && navigate('/authAfter/dashborad');
+
+    // 現在のme情報を取得
+    const meMeta = useMeMetaSelector();
 
     // 検証中
     const { token } = useTokenSelector();
@@ -46,7 +49,7 @@ const useLoginForm = () => {
         if (result) {
             // me　のaction login成功してれば当actionを実行しても同義 reduxで管理している「authCheck」をloginクリック後にSETするため、ここで実行
             dispatch(setAuthTrue());
-
+            dispatch(setMeMeta(meMeta));
             // ログイン後はdashboradへ
             navigate('/authAfter/dashborad');
         }

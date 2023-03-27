@@ -1,19 +1,22 @@
 import React from "react";
 
 import { useNavigate} from "react-router-dom";
-import { useAppDispatch } from "../../../re-ducks/store/hook"; 
+import { useAppDispatch } from "../re-ducks/store/hook"; 
 
 
-import logout from '../../../API/auth/logout';
+import logout from '../API/auth/logout';
 
-import { LogoutResponse } from '../../../types/logoutResponse';
-import { setAuthFalse, useAuthSelector } from '../../../re-ducks/ducks/Auth/authCheckSlice';
+import { LogoutResponse } from '../types/logoutResponse';
+import { setAuthFalse, useAuthSelector, useMeMetaSelector } from '../re-ducks/ducks/Auth/authCheckSlice';
+
+import type { MeResponse } from "../types/meResponse";
 
 const useHeaderHook = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-
     const { authCheck } = useAuthSelector();
+
+    const meMeta = useMeMetaSelector();
 
     // dashborad画面遷移
     const dashboradDisplay = () => {
@@ -45,7 +48,8 @@ const useHeaderHook = () => {
         loginDisplay,
         clickTop,
         authCheck,
-        dashboradDisplay
+        dashboradDisplay,
+        meMeta
     }
 }
 
