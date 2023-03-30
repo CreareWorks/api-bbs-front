@@ -5,16 +5,25 @@ const useDashborad = () => {
 
     const navigate = useNavigate();
     
-    const clickChangeUserNameBtn = () => {
-        navigate('/authAfter/changeUserMeta/changeName');
-    }
-    const clickChangeUserPassBtn = () => {
-        navigate('/authAfter/changeUserMeta/changePass');
+    const clickChangeDisplayBtn = (value: string) => {
+        switch (value) {
+            case 'posts':
+                navigate('/authAfter/posts/postsList');
+                break;
+            case 'name':
+                navigate('/authAfter/changeUserMeta/changeName');
+                break;
+            case 'pass':
+                navigate('/authAfter/changeUserMeta/changePass');
+                break;
+            default:
+                navigate('/');
+                break;
+        }
     }
 
     return {
-        clickChangeUserNameBtn,
-        clickChangeUserPassBtn 
+        clickChangeDisplayBtn
     }
 }
 

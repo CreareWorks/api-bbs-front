@@ -4,6 +4,7 @@ import { RouteObject, useRoutes, Router, BrowserRouter } from 'react-router-dom'
 // 各コンポーネント
 import Dashborad from '../features/DashBoard/components';
 import ChangeUserMetaRoutes from '../features/changeUserMeta/routes/index';
+import PostsListRoute from '../features/posts/routes/PostsListRoute';
 
 // 認証チェック用プロバイダー
 import AuthProvider from '../Provider/AuthProvider';
@@ -11,6 +12,7 @@ import AuthProvider from '../Provider/AuthProvider';
 const router: RouteObject[] = [
     {path: 'dashborad/*', element: <Dashborad /> },
     {path: 'changeUserMeta/*', element: <ChangeUserMetaRoutes/> },
+    {path: 'posts/*', element: <PostsListRoute /> },
 ]
 
 const AuthenticatedRoute = () => {
