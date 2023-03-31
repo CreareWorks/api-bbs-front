@@ -1,9 +1,15 @@
-import React from 'react';
+import * as React from 'react';
+import { 
+    AppBar,
+    Box,
+    Toolbar,
+    Typography,
+    Button,
+    IconButton,
+} from '@mui/material'; 
+import MenuIcon from '@mui/icons-material/Menu';
 
-import styled from 'styled-components';
-
-import useHeaderHook from '../hooks/useHeaderHook';
-
+import useHeaderHook from '../hooks/useHeaderHook'
 const HeaderComponent = () => {
 
     const {
@@ -16,71 +22,28 @@ const HeaderComponent = () => {
     } = useHeaderHook();
 
     return (
-        <Wrapper>
-            <Ul>
-                <Li onClick={clickTop}>
-                    TOP
-                </Li>
-                {
-                    !authCheck &&
-                    <Li onClick={loginDisplay}>
-                        login
-                    </Li>
-                }
-                
-                {
-                    authCheck &&
-                    <Li onClick={clickLogoutHandler}>
-                        logout
-                    </Li>
-                }
-                {
-                    authCheck &&
-                    <Li onClick={dashboradDisplay}>
-                        DashBorad
-                    </Li>
-                }
-                {
-                    authCheck &&
-                    <Li>
-                        「{ meMeta.name }」でログイン中
-                    </Li>
-                }
-            </Ul>
-        </Wrapper>
+        <>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+        </>
     );
 }
-
-
-// styled
-const Wrapper = styled.div`
-    background-image: linear-gradient(to left, #27acd9 0%, #009129a4 100%);
-`;
-
-const Ul = styled.ul`
-    margin: 0;
-    height: 10%;
-    display: flex;
-    justify-content: left;
-`;
-
-const Li = styled.li`
-    list-style: none;
-    margin: 0 1rem 0 1rem;
-    color: white;
-    cursor: pointer;
-`;
-
-const Header = styled.header`
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-`;
-
 
 export default HeaderComponent;
