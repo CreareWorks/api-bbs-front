@@ -54,7 +54,7 @@ const HeaderComponent = () => {
 
 // styled
 const Wrapper = styled.div`
-    background-color: #ff9191;
+    background-image: linear-gradient(to left, #27acd9 0%, #009129a4 100%);
 `;
 
 const Ul = styled.ul`

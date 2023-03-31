@@ -7,13 +7,6 @@ const ChangeName = () => {
         display: "flex",
         flexFlow: "column",
     }
-    const buttonStyle = {
-        width: 100,
-        marginTop: 20,
-        marginButtom: 0,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    }
 
     const {
         register,
@@ -40,7 +33,6 @@ const ChangeName = () => {
 
                 <button 
                     type="button" 
-                    style={buttonStyle}
                     onClick={handleSubmit(clickChangeNameHandler)}
                 >
                     名前変更

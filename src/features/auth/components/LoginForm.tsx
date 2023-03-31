@@ -20,7 +20,7 @@ const LoginForm = () => {
         
             <form>
                 <label htmlFor="mail">
-                    email
+                    email:　
                     <input 
                         id="mail" 
                         type="text" 
@@ -30,7 +30,7 @@ const LoginForm = () => {
                 <p>{errors.email?.message}</p>
                 <br />
                 <label htmlFor="password">
-                    password
+                    password:　
                     <input 
                         id="password" 
                         type="password"

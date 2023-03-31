@@ -1,16 +1,22 @@
 import React from "react";
-import postsCreateHook from "../hooks/usePostsCreate";
 
-// 型指定
-import type { FnProps } from "../types/postsProps";
+import postsEditHook from "../hooks/usePostsEdit";
 
-const PostsCreate: React.FC<FnProps> = (props) => {
+const PostsEdit: React.FC = () => {
+
     // 仮スタイル
     const formStyle = {
         display: "flex",
         flexFlow: "column",
         padding: '5px',
         borderBottom: '1px solid gray'
+    }
+    const style = {
+        width: 100,
+        marginTop: 20,
+        marginButtom: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
     const style2 = {
         width: '50%',
@@ -28,23 +34,23 @@ const PostsCreate: React.FC<FnProps> = (props) => {
         handleSubmit,
         errors,
         createResult,
-        clickPostCreateHandler
-    } = postsCreateHook(props);
-
+        
+        clickPostEditHandler,
+        beforeShowDisplay,
+    } = postsEditHook();
 
     return (
         <>
-            <p>新規投稿</p>
+            <p>投稿編集</p>
             <p style={style3}>{createResult}</p>
             <form style={formStyle}>
-
                 <label htmlFor="post_title">
                     タイトル
                     <input 
                         type="text"
                         id="post_title"
                         maxLength={15} 
-                        style={style2} 
+                        style={style2}
                         {...register('post_title')}
                     />
                 </label>
@@ -63,13 +69,22 @@ const PostsCreate: React.FC<FnProps> = (props) => {
 
                 <button 
                     type="button" 
-                    onClick={handleSubmit(clickPostCreateHandler)}
+                    style={style}
+                    onClick={handleSubmit(clickPostEditHandler)}
                 >
-                    投稿
+                    編集
+                </button>
+
+                <button 
+                    type="button" 
+                    style={style}
+                    onClick={beforeShowDisplay}
+                >
+                    戻る
                 </button>
             </form>
         </>
     )
 }
 
-export default PostsCreate;
+export default PostsEdit;

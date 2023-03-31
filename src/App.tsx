@@ -1,4 +1,5 @@
 import './styles/App.css';
+import './styles/buttonDesign.css';
 import { Route } from './routes'; // ルーティング必要な各コンポーネントを管理したファイルをimport
 import { BrowserRouter } from 'react-router-dom';
 //import { Provider } from 'react-redux'; // reduxを使うため、Providerを外側で囲ってあげる

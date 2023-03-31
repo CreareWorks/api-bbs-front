@@ -9,13 +9,6 @@ const RegisterForm = () => {
         display: "flex",
         flexFlow: "column",
     }
-    const buttonStyle = {
-        width: 100,
-        marginTop: 20,
-        marginButtom: 0,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    }
 
     const {
         register,
@@ -70,8 +63,7 @@ const RegisterForm = () => {
                 <p>{errors.password_confirmation?.message}</p>
 
                 <button 
-                    type="button" 
-                    style={buttonStyle}
+                    type="button"
                     onClick={handleSubmit(clickRegisterHandler)}
                 >
                     新規登録

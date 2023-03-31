@@ -3,14 +3,17 @@ import postListHook from "../hooks/usePostsList";
 
 import type { FnProps } from "../types/postsProps";
 
+import Modal from "./parts/Modal";
+
 const PostsList: React.FC<FnProps> = (props) => {
     const formStyle = {
         marginTop: '5%',
     }
     const formStyle2 = {
-        marginTop: '10%',
         border: '1px solid gray',
-        margin: '10% auto'
+        margin: '5% auto',
+        padding: '1%',
+        width: '80%'
     }
     const ulStyle = {
         listStyle: 'none',
@@ -18,22 +21,41 @@ const PostsList: React.FC<FnProps> = (props) => {
         justifyContent: 'center',
     }
     const listStyle = {
-        margin: '3%'
+        margin: '3%',
+        cursor: 'pointer'
     }
     const listActiveStyle = {
         margin: '3%',
         color: 'red',
-        backGroundColor: 'red'
+        backGroundColor: 'red',
+        cursor: 'pointer'
+    }
+    const pStyle = {
+        color: 'white',
+        fontWeight: 'bold',
+        backgroundColor: 'teal'
     }
 
     const {
+        meMeta,
+
         newList,
         clickPager,
         searchText,
         setSearchText,
 
         clickSearchBtnJudge, 
-        setClickSearchBtnJudge
+        setClickSearchBtnJudge,
+
+        showModal,
+        setShowModal,
+
+        clickDeleteOkBtn,
+
+        postId,
+        setPostId,
+
+        showEditDisplay
     } = postListHook(props);
 
     return (
@@ -61,31 +83,53 @@ const PostsList: React.FC<FnProps> = (props) => {
                 newList.result.data.map((list: any, index: number) => {
                     return (
                         <>
-                            <table key={list.post_id} style={formStyle2}>
-                                <thead>
-                                    <th colSpan={2}>各レコード</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>タイトル:</th>
-                                        <td>{list.post_title}</td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <th>本文:</th>
-                                        <td>{list.post_body}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button">編集</button></td>
-                                        <td><button type="button">削除</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div key={list.post_id} style={formStyle2}>
+                                <div>
+                                    <p style={pStyle}>タイトル</p>
+                                    <p>{list.post_title}</p>
+                                </div>
+                                <div>
+                                    <p style={pStyle}>本文</p>
+                                    <p>{list.post_body}</p>
+                                </div>
+                                
+                                {
+                                    (list.post_user_id === meMeta.id) &&
+                                    <div>
+                                        <button 
+                                            type="button"
+                                            onClick={() => {
+                                                showEditDisplay(list.post_id)
+                                            }}
+                                        >
+                                            編集
+                                        </button>
+                                        <button 
+                                            type="button"
+                                            onClick={() => {
+                                                setShowModal(!showModal)
+                                                setPostId(list.post_id)
+                                            }}
+                                        >
+                                            削除
+                                        </button>
+                                    </div>
+                                }
+                            </div>
                         </>
                     )
                 })
             }
 
+            {/* modal */}
+            <Modal 
+                showFlag={showModal} 
+                setShowModal={setShowModal} 
+                showModal={showModal} 
+                postId={postId}
+                clickDeleteOkBtn={clickDeleteOkBtn}
+            /> 
+            
             {/* ページネーション */}
             <ul style={ulStyle}>
                 {

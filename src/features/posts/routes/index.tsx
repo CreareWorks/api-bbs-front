@@ -2,15 +2,16 @@ import React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import PostsListRoute from "./PostsListRoute"; //投稿一覧　検索
+import PostsListRoute from "./PostsListRoute"; // 投稿一覧　検索
+import PostsEditRoute from "./PostsEditRoute"; // 編集画面
 
-const ChangeUserMetaRoutes = () => {
+const PostRoutes = () => {
     return (
         <Routes>
             <Route path="postsList" element={ <PostsListRoute /> } />
-            {/* 編集画面を新規定義する */}
+            <Route path="postsEdit" element={ <PostsEditRoute /> } />
         </Routes>
     )
 }
 
-export default ChangeUserMetaRoutes;
+export default PostRoutes;

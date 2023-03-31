@@ -2,7 +2,7 @@ import React from "react";
 
 import useTop from "../hooks/useTop";
 
-const Top = () => {
+const Top: React.FC = () => {
 
     const {
         authCheck,
@@ -12,22 +12,24 @@ const Top = () => {
 
     return (
         <>
-            <h1>TOP</h1>
-            {
-                !authCheck &&
+            <div>
+                <h1>TOP</h1>
+                {
+                    !authCheck &&
+                    <button 
+                        type="button"
+                        onClick={clickRegisterBtn}
+                    >
+                            会員登録
+                    </button>
+                }
                 <button 
-                    type="button"
-                    onClick={clickRegisterBtn}
+                    type="button" 
+                    onClick={clickLoginOrDash}
                 >
-                        会員登録
+                        { authCheck ? 'dashborad' : 'login' }
                 </button>
-            }
-            <button 
-                type="button" 
-                onClick={clickLoginOrDash}
-            >
-                    { authCheck ? 'dashborad' : 'login' }
-            </button>
+            </div>
         </>
     )
 }

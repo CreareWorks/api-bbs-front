@@ -1,14 +1,22 @@
 import React, { useCallback, useLayoutEffect, useState,  } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useMeMetaSelector } from "../../../re-ducks/ducks/Auth/authCheckSlice";
 
 import type { FnProps } from "../types/postsProps";
 import { result } from "../utils/initilalize";
 
 import postsGet from "../API/postsGet";
+import postsDelete from "../API/postsDelete";
 
 import { Posts } from "../types/postsBaseResponse";
 
-
 const postListHook = (props: FnProps) => {
+
+    const navigate = useNavigate();
+
+    // 認証中情報を取得
+    const meMeta = useMeMetaSelector();
 
     /**
      * states
@@ -21,6 +29,13 @@ const postListHook = (props: FnProps) => {
 
     // 検索ボタン押下判定state
     const [clickSearchBtnJudge, setClickSearchBtnJudge] = useState(false);
+
+    // 削除確認Modal state
+    const [showModal, setShowModal] = useState(false);
+    // 削除対象のpost_id　state
+    const [postId, setPostId] = useState(0);
+    // 削除完了フラグ list監視に使用
+    const [deleteComplete, setDeleteComplete] = useState(false);
 
     // リストstate
     const [newList, setNewList] = useState<Posts>({
@@ -40,7 +55,6 @@ const postListHook = (props: FnProps) => {
      */
     const getPostList = async(pageUrl: string, searchText: string) => {
         const response = await postsGet(pageUrl, searchText);
-        console.log(response)
         return response;
     };
 
@@ -50,14 +64,14 @@ const postListHook = (props: FnProps) => {
     const getPostsLists = useCallback( async() => {
         const newListData = await getPostList(pageUrl, searchText);
         setNewList(newListData);
-    },[props.checkUpdateList, pageUrl, clickSearchBtnJudge ]) //list更新時、ページャー切替、検索ボタン押下
+    },[props.checkUpdateList, pageUrl, clickSearchBtnJudge, deleteComplete ]) //list更新時、ページャー切替、検索ボタン押下
 
     /**
      * list取得APIを実行
      */
     useLayoutEffect(() => {
         getPostsLists();
-    },[props.checkUpdateList, pageUrl, clickSearchBtnJudge])
+    },[props.checkUpdateList, pageUrl, clickSearchBtnJudge, deleteComplete])
 
     /****************************************************************************/
 
@@ -70,14 +84,48 @@ const postListHook = (props: FnProps) => {
         setPageUrl(clickPageUrl); // SELECTしたい対象のpageをクエリパラメータに含むエンドポイントをSet
     }
 
+    /**
+     * Modal内OKボタンクリック
+     */
+    const clickDeleteOkBtn = async(postId: number) => {
+        // try catch面倒なので省略
+        const result = await postsDelete(postId);
+        if(result.status === 200) {
+            setDeleteComplete(!deleteComplete);
+        }
+    }
+
+    /****************************************************************************/
+    // others
+    /**
+     * 編集画面遷移
+     */
+    const showEditDisplay = (postId: number) => {
+        navigate('/authAfter/posts/postsEdit', {
+            state: postId,
+        });
+    }
+
+
     return {
+        meMeta,
+
         newList,
         clickPager,
         searchText,
         setSearchText,
 
         clickSearchBtnJudge, 
-        setClickSearchBtnJudge
+        setClickSearchBtnJudge,
+
+        showModal,
+        setShowModal,
+        clickDeleteOkBtn,
+
+        postId,
+        setPostId,
+
+        showEditDisplay
     }
 }
 
