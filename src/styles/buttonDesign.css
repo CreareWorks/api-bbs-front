@@ -33,3 +33,17 @@ input {
     line-height: 1.5;
     transition: ease;
 }
+
+textarea {
+	width: 30%;
+    margin-bottom: 0 auto;
+    padding: 0.55em;
+    border: 0;
+    border-radius: 3px;
+    background-color: #eff1f5;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1em;
+    line-height: 1.5;
+    transition: ease;
+}

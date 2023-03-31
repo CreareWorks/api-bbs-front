@@ -11,13 +11,6 @@ const PostsEdit: React.FC = () => {
         padding: '5px',
         borderBottom: '1px solid gray'
     }
-    const style = {
-        width: 100,
-        marginTop: 20,
-        marginButtom: 0,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    }
     const style2 = {
         width: '50%',
         marginTop: 20,
@@ -69,7 +62,6 @@ const PostsEdit: React.FC = () => {
 
                 <button 
                     type="button" 
-                    style={style}
                     onClick={handleSubmit(clickPostEditHandler)}
                 >
                     編集
@@ -77,7 +69,6 @@ const PostsEdit: React.FC = () => {
 
                 <button 
                     type="button" 
-                    style={style}
                     onClick={beforeShowDisplay}
                 >
                     戻る
